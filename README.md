@@ -1,4 +1,4 @@
-# SmartRecruit — Full Stack Admin Panel
+# SmartRecruit
 
 A full-featured recruitment and HR management admin panel built with **React 18 + TypeScript + Redux Toolkit (RTK Query)** on the frontend and a **Next.js** server-action-based backend. Developed over **4 months** as a **Full Stack Developer**. Live at **https://smartrecruit.agency/**
 
