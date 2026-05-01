@@ -1,12 +1,12 @@
-# SmartRecruit — Full Stack Admin Panel
+# SmartRecruit — Full Stack Recruitment & HR Platform
 
-A full-featured recruitment and HR management admin panel built with **React 18 + TypeScript + Redux Toolkit (RTK Query)** on the frontend and a **Next.js** server-action-based backend. Developed over **4 months** as a **Full Stack Developer**. Live at **https://smartrecruit.agency/**
+A production-grade B2B2C recruitment and skill development platform built end-to-end as a **Full Stack Developer** over **4 months**. The platform connects job seekers with European employment opportunities, helps employers hire skilled workers, offers skill and language training courses, and provides visa/relocation guidance — all managed through a fully CMS-driven admin panel. Live at **https://smartrecruit.agency/**
 
 ---
 
 ## Summary
 
-Built SmartRecruit — a production-grade recruitment and HR admin platform — in 4 months as a Full Stack Developer. Delivered a complete CMS-driven admin panel covering job posting, career job management, course/instructor management, application tracking, industry talent showcase, blog/review/success story management, media library, analytics dashboard with multiple chart types, and full page-builder for every public-facing page. Tech stack: React 18, TypeScript, Redux Toolkit (RTK Query), Ant Design, Tailwind CSS, Next.js (server actions), Formik, ApexCharts, jsPDF, XLSX — backend: Node.js, Express, MongoDB.
+Built SmartRecruit from the ground up in 4 months as a Full Stack Developer — covering the public-facing website, admin panel, and backend API. The platform serves job seekers, employers, training providers, and recruitment partners across Europe. Delivered a Next.js public website with dynamic job board, course enrollment, worker request forms, partner onboarding, and full CMS-controlled content; a React-based admin panel with analytics dashboard, full CRUD for all content, user management, media library, and page builder for every public page; and a Node.js + Express + MongoDB REST API powering both. Tech stack: Next.js (App Router, server actions), React 18, TypeScript, Redux Toolkit (RTK Query), Ant Design, Tailwind CSS, Framer Motion, React Hook Form, Zod, Formik, ApexCharts, jsPDF, XLSX, Node.js, Express, MongoDB.
 
 ---
 
@@ -17,13 +17,10 @@ Built SmartRecruit — a production-grade recruitment and HR admin platform — 
 | **Live Website** | https://smartrecruit.agency/ |
 | **Duration** | 4 months |
 | **Role** | Full Stack Developer |
-| **Frontend Stack** | React 18, TypeScript, Redux Toolkit (RTK Query), Ant Design, Tailwind CSS 4, React Router 7, Framer Motion, Next.js (server actions) |
-| **Backend Stack** | Node.js, Express, MongoDB |
-| **Forms** | Formik + Yup validation |
-| **Rich Text** | TinyMCE, React Quill |
-| **Charts** | ApexCharts, Recharts, CanvasJS |
-| **Export** | jsPDF (PDF), XLSX (Excel) |
-| **Other** | Redux Persist, Image Crop, React Toastify |
+| **Public Frontend** | Next.js 13 (App Router, server actions), TypeScript, Redux Toolkit (RTK Query), Tailwind CSS, Radix UI, Framer Motion, React Hook Form + Zod |
+| **Admin Panel** | React 18, TypeScript, Redux Toolkit (RTK Query), Ant Design, Tailwind CSS 4, React Router 7, Formik + Yup, ApexCharts, Recharts |
+| **Backend** | Node.js, Express, MongoDB |
+| **Other** | TinyMCE, jsPDF, XLSX, Redux Persist, reCAPTCHA, Image Crop |
 
 ---
 
@@ -31,244 +28,207 @@ Built SmartRecruit — a production-grade recruitment and HR admin platform — 
 
 ### 1. Authentication & Access Control
 
-- **JWT-based login** — token stored in Redux (persisted via Redux Persist)
-- **Bearer token** sent in every API request header automatically via RTK Query `prepareHeaders`
+- **JWT-based login** — token stored in Redux (persisted via Redux Persist across sessions)
+- **Bearer token** sent automatically in every API request header via RTK Query `prepareHeaders`
 - **Client metadata** — IP address, user agent, browser URL, and timestamp sent as `X-Client-Details` header on every request for audit tracking
 - **401 handling** — any unauthorized response triggers automatic logout and redirect to login
-- **Role-based access** — routes protected by roles: `Super Admin`, `Admin`, `Editor`, `Publisher`
-- **Password management** — change password from settings, forget password + reset password flow
+- **Role-based access** — admin routes protected by roles: `Super Admin`, `Admin`, `Editor`, `Publisher`
+- **Password management** — change password from settings, forget password + reset password via email flow
 
 ---
 
-### 2. Dashboard & Analytics
+### 2. Public Website (Next.js Frontend)
 
-The landing page of the admin panel — gives a real-time snapshot of platform activity.
+The public-facing marketing and service platform at https://smartrecruit.agency/ — fully CMS-driven from the admin panel.
 
-- **Stats cards** — total jobs, total applications, total courses, total enrollments
-- **Charts (9 types)**:
-  - Applications chart (bar/column)
-  - Applications trend line
-  - Hiring funnel chart
-  - Interview success rate chart
-  - Job applications analytics chart
-  - Job categories distribution chart
-  - Progress chart
-  - Data distribution chart
-  - Summary chart
-- **Latest jobs** — quick view of recently posted jobs
-- **Latest job applications** — recent applicant activity
-- **Latest courses** — recently added courses
+#### Home Page
+- Hero section, stats counters, services overview
+- How We Work section, Why Choose SmartRecruit section
+- Brands/partners logos, testimonials/reviews
+- Job Fair & Seminar section, FAQ section
+- All content dynamically loaded from backend CMS
+
+#### Job Board (`/jobs`)
+- Search jobs by keyword
+- Filter by industry, country, employment type, experience level, education level
+- Sort options, pagination
+- Mobile-friendly drawer-based filters
+- Individual job detail pages (`/jobs/[id]`)
+- **Job application** — apply directly from the platform
+
+#### Career Opportunities (`/career`)
+- Internal job openings at SmartRecruit
+- Individual career job detail pages (`/career/[id]`)
+- Application flow for internal positions
+
+#### Skill & Language Training (`/skill-and-training`)
+- Browse courses split by category: skill-based and language-based
+- Individual course detail pages (`/skill-and-training/[slug]`)
+- **Course enrollment** form
+- Why Choose Our Training section, Benefits, Tips for Success, Real Stories
+
+#### Employer Services (`/employer`)
+- How SmartRecruit helps companies hire skilled workers across Europe
+- **Worker Request Form** — employers submit hiring needs by industry and worker count
+- Process walkthrough, benefits showcase
+
+#### Talent Hub (`/talent-hub`)
+- Browse available talent profiles organized by industry
+- CTA to submit a worker request
+
+#### Partner Page (`/partner`)
+- Recruitment agency partnership opportunities
+- **Partner application form** with industry selection
+- Step-by-step partnership process, Why Choose section
+
+#### Visa & Relocation Guide (`/visa-and-relocation`)
+- Step-by-step guide for workers relocating to Europe
+- Visa process breakdown, relocation tips
+
+#### Blog & News
+- `/blog` — blog landing with featured articles
+- `/news` — paginated news listing with category filters
+- `/news/[slug]` — individual article pages with rich text content, share buttons
+
+#### Hall of Fame (`/hall-of-fame`)
+- Success stories of placed workers and satisfied employers
+- Filterable by category
+
+#### About Us (`/about`)
+- Company mission, vision, our story
+- Team member profiles
+
+#### Contact (`/contact`)
+- Contact form with **reCAPTCHA v2** protection
+- Multiple office locations displayed
+- Message sent directly to backend
+
+#### Technical Features (Frontend)
+- **IP-based geolocation** — detects user country via IPInfo API, stored in cookie
+- **Dynamic image optimization** — all images served from CDN (`/uploads`)
+- **Loading skeletons** — smooth UX during API data fetching
+- **Responsive design** — mobile, tablet, desktop breakpoints throughout
+- **DOMPurify** — sanitizes rich text content before rendering
+- **next-themes** — light/dark theme support
 
 ---
 
-### 3. Jobs Management
+### 3. Admin Panel (React Frontend)
 
-Manage client-facing job postings displayed on the SmartRecruit website.
+A fully role-protected internal panel for SmartRecruit staff to manage all platform content and operations.
 
-- **Create job** — title, description (rich text), category, location, salary, job type, deadline
-- **Edit job** — full update of all fields
-- **Delete job**
-- **List all jobs** — paginated table with search and filter
-- **Job Details modal** — preview job posting inline
-- **Job Applications** — view all applications submitted for jobs:
-  - Applicant name, email, resume/CV link
-  - Application date
-  - Application status tracking
+#### Dashboard & Analytics
+- Stats cards — total jobs, total applications, total courses, total enrollments
+- **9 chart types**: Applications chart, Trend line, Hiring Funnel, Interview Success Rate, Job Applications Analytics, Job Categories distribution, Progress chart, Data Distribution, Summary chart
+- Latest jobs, latest job applications, latest courses — real-time activity view
 
----
+#### Jobs Management
+- Create, edit, delete client-facing job postings
+- Fields: title, description (rich text), category, location, salary, job type, deadline
+- Inline Job Details modal
+- **Job Applications** — view all applicants: name, email, resume link, date, status
 
-### 4. Career Jobs Management
-
-Separate section for internal career openings at SmartRecruit itself.
-
-- **Create career job** — same fields as client jobs but for internal hiring
-- **Edit / Delete career job**
-- **List career jobs** — paginated and searchable
+#### Career Jobs Management
+- Separate CRUD for internal SmartRecruit job openings
 - **Career Job Applications** — track applicants for internal positions
 
----
+#### Courses & Enrollments
+- Create, edit, delete courses with slug-based routing
+- Fields: title, slug, rich text description, thumbnail, instructor, duration, fee, category
+- **Course Enrollments** — view all enrolled students with details
 
-### 5. Courses & Skill Training
+#### Instructors Management
+- Add, edit, delete instructors
+- Fields: name, bio, photo, social links, specialization
 
-Manage skill-development courses offered through the platform.
+#### Industries Section
+- **Industry Banner** — update the Industries page hero from admin
+- **Industry Categories** — CRUD (e.g., Finance, Tech, Healthcare, Construction)
+- **Industry Labels** — CRUD for job industry tags used in listings
+- **Our Industry Talents** — CRUD for featured talent profiles per industry
 
-- **Create course** — title, slug, description (TinyMCE rich text), thumbnail, instructor, duration, fee, category
-- **Edit course** — full update
-- **Delete course**
-- **List all courses** — paginated table
-- **Course Details modal** — inline preview
-- **Course Enrollments** — view all students enrolled in courses:
-  - Student name, email, enrolled date, course name
+#### Blog Management
+- Create, edit, delete blog posts with TinyMCE rich text editor
+- Slug-based routing, thumbnail, tags, author, publish date
+- Inline blog preview modal
 
----
+#### Reviews Management
+- **Student Reviews** — create, edit, delete course/training reviews
+- **Client Reviews** — create, edit, delete employer testimonials
 
-### 6. Instructors Management
+#### Success Stories
+- Create, edit, delete placement success stories
+- Fields: title, description, photo, person name, role, company
 
-Manage the instructors who deliver courses.
+#### Team Management
+- Add, edit, delete team members shown on the public About page
+- Filter by category/department
+- Confirm modal before deletion
 
-- **Add instructor** — name, bio, photo, social links, specialization
-- **Edit instructor**
-- **Delete instructor**
-- **List all instructors** — table view with photo and details
+#### Media Library
+- Upload images with built-in **image crop/resize** before saving
+- Grid view with search, rename, delete
+- **Set Media modal** — pick from existing library when editing any content
 
----
+#### Page Builder (CMS)
+Every public page section is editable from admin:
 
-### 7. Industries Section
+| Page | Sections |
+|---|---|
+| **Home** | Hero, About, Services, Stats, Brands, How to Work, Why Choose Us, FAQ, Feature Banner |
+| **About** | Hero, Our Story, Opportunity, Vision, Why Choose Us |
+| **Employer** | Hero, How We Help, How We Work, CTA |
+| **Partner** | Hero, Why Choose Us, Step Process, CTA |
+| **Visa & Relocation** | Hero, Guidelines Content |
+| **Skill Training** | Hero, Benefits, Tips, Why Choose Us |
+| **Terms & Privacy** | Hero, Full Legal Content |
 
-Showcase talent categories and industry expertise on the public site.
+#### User Management
+- Create users, assign roles (`Super Admin`, `Admin`, `Editor`, `Publisher`)
+- Suspend / activate accounts
+- Update profile (name, photo, bio)
 
-- **Industry Banner** — update the hero banner for the Industries page
-- **Industry Categories** — CRUD for talent categories (e.g., Finance, Tech, Healthcare)
-- **Industry Labels** — CRUD for job industry labels/tags used in listings
-- **Our Industry Talents** — CRUD for featured talent profiles per industry:
-  - Name, photo, role, category, description
+#### Action Logs (Audit Trail)
+- View system-wide logs of all admin actions — who did what and when
 
----
-
-### 8. Blog Management
-
-Full blog/article publishing system for the SmartRecruit website.
-
-- **Create blog** — title, slug, content (TinyMCE rich text), thumbnail, tags, author, publish date
-- **Edit blog** — update any field
-- **Delete blog**
-- **List all blogs** — paginated with slug-based routing
-- **Blog modal** — preview blog content inline
-
----
-
-### 9. Reviews Management
-
-Two separate review streams — student reviews and client reviews.
-
-#### Student Reviews
-- Create, edit, delete student reviews
-- Fields: student name, photo, course, rating, review text
-
-#### Client Reviews
-- Create, edit, delete client reviews
-- Fields: client name, company, photo, rating, testimonial text
-
----
-
-### 10. Success Stories
-
-Showcase placement and career success stories on the public website.
-
-- **Create success story** — title, description, photo, person name, role, company
-- **Edit / Delete success story**
-- **List all stories** — table view with preview
+#### Settings
+- Change password, update personal profile
 
 ---
 
-### 11. Team Management
+### 4. Backend API (Node.js + Express + MongoDB)
 
-Manage the SmartRecruit team displayed on the public About/Team page.
+RESTful API powering both the public website and the admin panel.
 
-- **Add team member** — name, designation, photo, social links, category
-- **Edit team member**
-- **Delete team member** (with confirm modal)
-- **List by category** — filter team by department/category
-
----
-
-### 12. Media Library
-
-Centralized image/file management used across all CMS modules.
-
-- **Upload image** — single file upload with image crop tool
-- **List all media** — grid view with search
-- **Rename media**
-- **Delete media**
-- **Set media modal** — pick from existing library when editing any page/content
-- **Image crop modal** — crop/resize before saving
-
----
-
-### 13. Page Builder (CMS)
-
-Every public-facing page of the SmartRecruit website is fully editable from the admin panel. Each page has section-specific forms.
-
-#### Home Page (9 sections)
-- Hero banner (headline, subtext, CTA buttons, background)
-- About section
-- Services section
-- Stats section (numbers/counters)
-- Brands/partners logos
-- How to work section
-- Why Choose Us section
-- FAQ section
-- Feature banner
-
-#### About Page (5 sections)
-- Hero banner
-- Our Story section
-- Opportunity section
-- Vision section
-- Why Choose Us section
-
-#### Employer Page (4 sections)
-- Hero banner
-- How We Help section
-- How We Work section
-- CTA section
-
-#### Partner Page (4 sections)
-- Hero banner
-- Why Choose Us section
-- Step-by-step process section
-- CTA section
-
-#### Visa & Relocation Page (2 sections)
-- Hero banner
-- Guidelines/content section
-
-#### Skill Training Page (4 sections)
-- Hero banner
-- Benefits section
-- Tips section
-- Why Choose Us section
-
-#### Terms & Privacy Page (2 sections)
-- Hero banner
-- Full legal content (rich text)
-
----
-
-### 14. User Management
-
-Manage admin panel users and access.
-
-- **Create user** — name, email, role
-- **List all users** — paginated
-- **Update user role** — assign `Super Admin`, `Admin`, `Editor`, `Publisher`
-- **Suspend / Activate user** — toggle account status
-- **Update profile** — name, photo, bio
-
----
-
-### 15. Action Logs (Audit Trail)
-
-- View system-wide action logs — who did what and when
-- Helps with accountability and debugging
-
----
-
-### 16. Settings
-
-- **Change password** — from the profile settings menu
-- **Profile updates** — update personal details and photo
+- **Authentication** — JWT issue and verification, refresh token, forget/reset password via email
+- **Jobs & Career Jobs** — full CRUD with filtering, search, pagination
+- **Job Applications & Career Applications** — receive and store applicant submissions
+- **Courses & Enrollments** — course CRUD, enrollment registration
+- **Instructors** — instructor management endpoints
+- **Blogs** — slug-based blog CRUD
+- **Success Stories** — story CRUD with category filters
+- **Student & Client Reviews** — review CRUD
+- **Industries, Categories, Labels, Talents** — full industry section management
+- **Team Members** — team CRUD with category support
+- **Media** — file upload, rename, delete (served from `/uploads`)
+- **Page Content** — Home, About, Employer, Partner, Visa, Skill Training, Terms & Privacy — GET + PATCH per page
+- **Users** — user CRUD, role update, status toggle
+- **Action Logs** — server-side logging of all admin mutations
+- **Dashboard Stats** — aggregated statistics endpoint
+- **Contact / Worker Request / Partner Form** — form submission handling with reCAPTCHA verification
 
 ---
 
 ## Architecture Highlights
 
-- **RTK Query** — all API calls use RTK Query with cache tag invalidation; editing a resource auto-refreshes all related lists
-- **Redux Persist** — auth token survives page refresh without re-login
-- **Role-based route protection** — `ProtectedRoute` wrapper checks user role before rendering any page
-- **Form stack** — Formik + Yup for all create/edit forms; consistent validation UX
-- **Rich text** — TinyMCE and React Quill used across blog, courses, and page-builder forms
+- **Monorepo structure** — public website (`frontend.smartrecruit`) and admin panel (`admin.smartrecruit`) as separate apps sharing one backend
+- **RTK Query** — all API calls in both apps use RTK Query with cache tag invalidation; mutations auto-refresh related lists
+- **Redux Persist** — auth token survives page refresh in both apps without re-login
+- **Role-based route protection** — `ProtectedRoute` in admin; public site has no login requirement
+- **Server actions** — Next.js server actions used for select data-fetching operations alongside RTK Query
+- **Form stacks** — React Hook Form + Zod (public site), Formik + Yup (admin panel)
+- **Rich text** — TinyMCE (admin) and React Quill (public) for content editing
 - **Export** — jsPDF for PDF reports, XLSX for Excel exports of application data
-- **Image crop** — built-in crop/resize step before any image upload
-- **Reusable component library** — shared `FormInput`, `FormSelect`, `FormDatePicker`, `FormRichTextEditor`, `AntTable`, `PageHeader` used consistently across all 25+ pages
-- **9 chart types** — ApexCharts, Recharts, and CanvasJS used for different visualization needs in the analytics dashboard
+- **Image crop** — built-in crop/resize step before any image upload in admin
+- **reCAPTCHA v2** — protects contact and application forms on the public site
+- **IP geolocation** — detects user country on page load via IPInfo API for localized UX
